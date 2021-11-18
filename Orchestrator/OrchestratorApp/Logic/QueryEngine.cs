@@ -12,10 +12,9 @@ namespace OrchestratorApp.Logic
     {
         const string URLEFDB = "https://localhost:44375/SearchedResults/";
         const string URLEFDB_GetSearchedResult = URLEFDB+"Find/";
-
         const string URLEFDB_PostSearchedResults = URLEFDB + "Post/";
 
-        const string URLApiAdapter = "https://localhost:44308/api/ExternalAPI/GetBooks";
+        const string URLApiAdapter = "https://localhost:44308/ExternalAPI/SearchBook";
 
         private MasterJSON mjson;
 
@@ -23,10 +22,10 @@ namespace OrchestratorApp.Logic
             mjson = new MasterJSON();
         }
 
-        Response InvokeGetAPI(Request request,string serviceURL) {
+        async Task<Response> InvokeGetAPI_Request(Request request,string serviceURL) {
 
             //Send data to API
-            string jsonresponse = mjson.PostJSON(serviceURL, request);
+            string jsonresponse = await mjson.PostJSONAsync(serviceURL, request);
             
             //Converts result to Response type
             Response response =  mjson.DeconvertJSONToResponse(jsonresponse);
@@ -36,11 +35,25 @@ namespace OrchestratorApp.Logic
 
         }//end of InvokeAPI
 
+        async Task<Response> InvokeGetAPI_Response(Response response_input, string serviceURL)
+        {
+
+            //Send data to API
+            string jsonresponse = await mjson.PostJSONAsync(serviceURL, response_input);
+
+            //Converts result to Response type
+            var response = mjson.DeconvertJSONToResponse(jsonresponse);
+
+            return response;
+
+
+        }//end of InvokeAPI
+
         public async Task<Response> SearchDBFirst(Request request) {
 
             Response response;
             //Looks for similar information on the Database already searched
-            response = InvokeGetAPI(request, URLEFDB_GetSearchedResult);
+            response = await InvokeGetAPI_Request(request, URLEFDB_GetSearchedResult);
             if (response.foundOn == (int)FoundType.NotFound) {
 
                 response = await SearchCloudFirst(request);
@@ -55,7 +68,7 @@ namespace OrchestratorApp.Logic
         public async Task<Response> SearchCloudFirst(Request request) {
             Response response;
             //IF there isnt info then it will query the external APIs for it
-            response = InvokeGetAPI(request, URLApiAdapter);
+            response = await InvokeGetAPI_Request(request, URLApiAdapter);
 
             if (response.foundOn == (int)FoundType.NotFound)
             {
@@ -66,7 +79,8 @@ namespace OrchestratorApp.Logic
             else
             {
                 //Once information is found, the DB is updated with the new search 
-                InvokeGetAPI(request, URLEFDB_PostSearchedResults);
+                //Post found info on DB
+               await  InvokeGetAPI_Response(response, URLEFDB_PostSearchedResults);
 
             }//end of else if response was found on externaAPIs
             return response;

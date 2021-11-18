@@ -25,6 +25,10 @@ namespace EFDB.Model
         public SearchedResult() {
 
             FoundOn = (int)FoundType.NotFound;
+            Autorname = "";
+            Bookname = "";
+            Jsonresponse = "";
+            Id = 0;
         }
     }//end of class
 }//end of namespace

@@ -13,12 +13,12 @@ namespace ExternalAPIAdapter.Logic.Handlers
         public string serviceURL { get => "nowhere"; }
         public string ConvertParameterToHTTPParameter(List<ParameterMap> parameters)
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public APIResult GetData(List<ParameterMap> parameters )
         {
-            throw new NotImplementedException();
+            return new APIResult();
         }
     }//end of class
 

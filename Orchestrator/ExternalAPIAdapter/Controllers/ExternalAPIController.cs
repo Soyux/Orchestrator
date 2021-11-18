@@ -27,7 +27,6 @@ namespace ExternalAPIAdapter.Controllers
         [HttpPost]
         public async Task<IActionResult> Post_SearchBooks([FromBody] Request request)
         {
-
             Response response = await adapterhandler.GetData(request);
 
             return Ok(mjson.ConvertResponseToJson(response));

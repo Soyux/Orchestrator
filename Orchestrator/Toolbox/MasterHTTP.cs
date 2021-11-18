@@ -5,8 +5,7 @@ using System.Text;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-
+using System.Threading.Tasks; 
 namespace Toolbox
 {
     public class MasterHTTP
@@ -199,9 +198,32 @@ namespace Toolbox
 
         public string GetResponse()
         {
-
             // Get the original response.
             WebResponse response = request.GetResponse();
+
+            this.Status = ((HttpWebResponse)response).StatusDescription;
+
+            // Get the stream containing all content returned by the requested server.
+            dataStream = response.GetResponseStream();
+
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+
+            // Read the content fully up to the end.
+            string responseFromServer = reader.ReadToEnd();
+
+            // Clean up the streams.
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+
+            return responseFromServer;
+        }
+
+        public async Task<string> GetResponseAsync()
+        {
+            // Get the original response.
+            var  response = request.GetResponse();
 
             this.Status = ((HttpWebResponse)response).StatusDescription;
 

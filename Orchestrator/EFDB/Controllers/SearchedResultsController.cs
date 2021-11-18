@@ -11,6 +11,7 @@ using EFDB.Logic;
 using SharedComms;
 using System.Text.Json;
 using Toolbox;
+using System.Net.Http;
 
 namespace EFDB.Controllers
 {
@@ -55,45 +56,10 @@ namespace EFDB.Controllers
             return Ok(mjson.ConvertResponseToJson(response));
         }
 
-        //// PUT: api/SearchedResults/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutSearchedResult(int id, SearchedResult searchedResult)
-        //{
-        //    if (id != searchedResult.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(searchedResult).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!SearchedResultExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        // POST: api/SearchedResults
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-
         [Route("Post")]
         [HttpPost]
-        public async Task<IActionResult> PostSearchedResult([FromBody]Response response)
+        public async Task<IActionResult> PostSearchedResult([FromBody] Response response)
+            //public async Task<IActionResult> PostSearchedResult([FromBody] Response response)
         {
             var searchedResult = new AdapterResponseSearchedResult().Apply(response);
             _context.SearchedResult.Add(searchedResult);

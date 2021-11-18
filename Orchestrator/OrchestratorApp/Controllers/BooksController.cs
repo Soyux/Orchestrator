@@ -5,37 +5,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using OrchestratorApp.Logic;
 using SharedComms;
+using Toolbox;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OrchestratorApp
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
-         
-         
-
+        private MasterJSON mjson = new MasterJSON();
         //// POST api/<BooksController>
         //[Route("api/SearchCloud")]
         //[HttpPost]
         //public void Post([FromBody] )
         //{
         //}
-        [Route("api/SearchCloud")]
+        [Route("SearchCloud")]
         [HttpPost]
-        public async Task<Response> SearchCloud(Request request )
+        public async Task<IActionResult> SearchCloud([FromBody]Request request )
         {
-            return await new QueryEngine().SearchCloudFirst(request);
+            var response = await new QueryEngine().SearchCloudFirst(request);
+            return Ok(mjson.ConvertResponseToJson(response));
         }
 
-        // POST api/<BooksController>
-        [Route("api/SearchDB")]
+        //POST api/<BooksController>
+        [Route("SearchDB")]
         [HttpPost]
-        public async Task<Response> SearchDB(Request request)
+        public async Task<IActionResult> SearchDB([FromBody] Request request)
         {
-            return await new QueryEngine().SearchDBFirst(request);
+            var response = await new QueryEngine().SearchDBFirst(request);
+
+            return Ok(mjson.ConvertResponseToJson(response));
         }
     }
 }

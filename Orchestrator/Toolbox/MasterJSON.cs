@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using SharedComms;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace Toolbox
 {
@@ -15,6 +16,15 @@ namespace Toolbox
             string request = JsonConvert.SerializeObject(requestItem);
             var webhelper = new MasterHTTP(url, "POST", request, true);
             string response = webhelper.GetResponse();
+
+            return response;
+        }
+
+        public async Task<string> PostJSONAsync(string url, dynamic requestItem)
+        {
+            string request = JsonConvert.SerializeObject(requestItem);
+            var webhelper = new MasterHTTP(url, "POST", request, true);
+            string response = await webhelper.GetResponseAsync();
 
             return response;
         }

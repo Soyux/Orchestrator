@@ -21,6 +21,11 @@ namespace ExternalAPIAdapter.Logic
         public string json { get; set; }
         public int count { get; set; }
 
+        public APIResult() {
+            json = "";
+            count = 0;
+        }
+
     }
 
 }//end of namespace
