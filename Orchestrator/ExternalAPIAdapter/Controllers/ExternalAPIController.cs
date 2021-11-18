@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SharedComms;
 
 namespace ExternalAPIAdapter.Controllers
 {
@@ -19,12 +20,11 @@ namespace ExternalAPIAdapter.Controllers
             _logger = logger;
             adapterhandler = new AdapterHandler();
         }
-
-        [HttpGet]
-      
-        public async Task<Response> GetBooks(Request request)
+         
+        [HttpPost]
+        public async Task<Response> Post_SearchBooks(Request request)
         {
-            Response response = adapterhandler.GetData(request.autorname, request.bookname);
+            Response response = adapterhandler.GetData(request);
 
             return response;
 

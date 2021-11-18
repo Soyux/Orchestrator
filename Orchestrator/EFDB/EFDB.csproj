@@ -22,5 +22,9 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="3.1.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharedComms\SharedComms.csproj" />
+  </ItemGroup>
+
 
 </Project>

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFDB", "EFDB\EFDB.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2F65D541-D2F0-4E0D-9171-621C98B3BDD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchestratorApp", "OrchestratorApp\OrchestratorApp.csproj", "{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchestratorApp", "OrchestratorApp\OrchestratorApp.csproj", "{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedComms", "SharedComms\SharedComms.csproj", "{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,13 +37,19 @@ Global
 		{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{30061A4A-B4AE-42A5-9BB4-1EA700E32419} = {2F65D541-D2F0-4E0D-9171-621C98B3BDD1}
+		{A7A080EF-0C5A-442F-BF86-D293806FD879} = {2F65D541-D2F0-4E0D-9171-621C98B3BDD1}
 		{02E87A38-4F5D-48A1-915B-5E838EC170FD} = {2F65D541-D2F0-4E0D-9171-621C98B3BDD1}
+		{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5} = {2F65D541-D2F0-4E0D-9171-621C98B3BDD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A35335EC-EAF9-4921-8909-2C8000552536}

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EFDB.Data;
 using EFDB.Model;
+using EFDB.Logic;
+using SharedComms;
 
 namespace EFDB.Controllers
 {
@@ -21,79 +23,65 @@ namespace EFDB.Controllers
             _context = context;
         }
 
-        // GET: api/SearchedResults
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SearchedResult>>> GetSearchedResult()
-        {
-            return await _context.SearchedResult.ToListAsync();
+        //// GET: api/SearchedResults
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<SearchedResult>>> GetSearchedResult()
+        //{
+        //    return await _context.SearchedResult.ToListAsync();
+        //}
+
+        //// GET: api/SearchedResults/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<SearchedResult>> GetSearchedResult(int id)
+        //{
+        //    var searchedResult = await _context.SearchedResult.FindAsync(id);
+
+        //    if (searchedResult == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return searchedResult;
+        //}
+         
+        [HttpPost]
+        public async Task<ActionResult<Response>> GetSearchedResult(Request request)
+        {   
+            Response response = await new Filter().Apply(request, _context.SearchedResult);
+            return response;
         }
 
-        // GET: api/SearchedResults/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SearchedResult>> GetSearchedResult(int id)
-        {
-            var searchedResult = await _context.SearchedResult.FindAsync(id);
+        //// PUT: api/SearchedResults/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
+        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutSearchedResult(int id, SearchedResult searchedResult)
+        //{
+        //    if (id != searchedResult.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            if (searchedResult == null)
-            {
-                return NotFound();
-            }
+        //    _context.Entry(searchedResult).State = EntityState.Modified;
 
-            return searchedResult;
-        }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!SearchedResultExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-        // GET: api/SearchedResults/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SearchedResult>> GetSearchedResult(string authorname, string bookname)
-        {
-
-            var searchedResult =   _context.SearchedResult.First(
-                P=>P.Autorname.Contains(authorname) || 
-                P.Bookname.Contains(bookname) || 
-                P.Jsonresponse.Contains(authorname) ||
-                P.Jsonresponse.Contains(bookname)
-                ); 
-            //var searchedResult = await _context.SearchedResult.FindAsync(id);
-
-            if (searchedResult == null)
-            {
-                return NotFound();
-            }
-
-            return searchedResult;
-        }
-
-        // PUT: api/SearchedResults/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSearchedResult(int id, SearchedResult searchedResult)
-        {
-            if (id != searchedResult.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(searchedResult).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SearchedResultExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/SearchedResults
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -107,21 +95,21 @@ namespace EFDB.Controllers
             return CreatedAtAction("GetSearchedResult", new { id = searchedResult.Id }, searchedResult);
         }
 
-        // DELETE: api/SearchedResults/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<SearchedResult>> DeleteSearchedResult(int id)
-        {
-            var searchedResult = await _context.SearchedResult.FindAsync(id);
-            if (searchedResult == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/SearchedResults/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<SearchedResult>> DeleteSearchedResult(int id)
+        //{
+        //    var searchedResult = await _context.SearchedResult.FindAsync(id);
+        //    if (searchedResult == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.SearchedResult.Remove(searchedResult);
-            await _context.SaveChangesAsync();
+        //    _context.SearchedResult.Remove(searchedResult);
+        //    await _context.SaveChangesAsync();
 
-            return searchedResult;
-        }
+        //    return searchedResult;
+        //}
 
         private bool SearchedResultExists(int id)
         {

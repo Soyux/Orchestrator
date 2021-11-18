@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using SharedComms;
+using Toolbox;
 
 namespace OrchestratorApp
 {
     public class QueryEngine
     {
         const string URLEFDB = "https://localhost:44375/api/SearchedResults/";
-        const string URLApiAdapter = "https://localhost:44308/api/ExternalAPI/";
+        const string URLApiAdapter = "https://localhost:44308/api/ExternalAPI/GetBooks";
 
-        void InvokeAPI() { 
-            
+        Response InvokeGetAPI(Request request,string serviceURL) {
 
-        
+
+
+            var http = new MasterHTTP();
+            HttpResponseMessage response;
+
+            var httpparameter = ConvertParameterToHTTPParameter(parameters);
+            response = http.GEtJSONAsync(googleapi + httpparameter, "").GetAwaiter().GetResult();
+            string res = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            json = res; 
+
         }//end of InvokeAPI
 
-        public void SearchDBFirst(string authorname,string bookname) {
+
+
+        public Response SearchDBFirst(Request request) {
 
             //Looks for similar information on the Database already searched
-
-
 
                 //IF there isnt info then it will query the external APIs for it
 
