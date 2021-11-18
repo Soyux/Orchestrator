@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EFDB.Data;
 using EFDB.Model;
 
-namespace EFDB
+namespace EFDB.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,6 +33,27 @@ namespace EFDB
         public async Task<ActionResult<SearchedResult>> GetSearchedResult(int id)
         {
             var searchedResult = await _context.SearchedResult.FindAsync(id);
+
+            if (searchedResult == null)
+            {
+                return NotFound();
+            }
+
+            return searchedResult;
+        }
+
+        // GET: api/SearchedResults/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SearchedResult>> GetSearchedResult(string authorname, string bookname)
+        {
+
+            var searchedResult =   _context.SearchedResult.First(
+                P=>P.Autorname.Contains(authorname) || 
+                P.Bookname.Contains(bookname) || 
+                P.Jsonresponse.Contains(authorname) ||
+                P.Jsonresponse.Contains(bookname)
+                ); 
+            //var searchedResult = await _context.SearchedResult.FindAsync(id);
 
             if (searchedResult == null)
             {
