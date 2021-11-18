@@ -47,7 +47,7 @@ namespace ExternalAPIAdapter.Logic.Handlers
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns>The total of records found</returns>
-        public int  GetData(List<ParameterMap> parameters,out string  json)
+        public APIResult  GetData(List<ParameterMap> parameters )
         {
             var http = new MasterHTTP();
             HttpResponseMessage response;
@@ -55,10 +55,13 @@ namespace ExternalAPIAdapter.Logic.Handlers
             var httpparameter = ConvertParameterToHTTPParameter(parameters);
             response = http.GEtJSONAsync(googleapi + httpparameter, "").GetAwaiter().GetResult();
             string res = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            json = res;
-            return extractTotalFound(res);
 
-            
+            return new APIResult()
+            {
+                count = extractTotalFound(res),
+                json = res
+            };
+        
         }//end of GetData
 
         public int extractTotalFound(string json) {

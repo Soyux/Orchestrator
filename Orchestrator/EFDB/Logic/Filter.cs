@@ -24,13 +24,18 @@ namespace EFDB.Logic
 
         async Task<SearchedResult> FindWhereContains(Request request,DbSet<SearchedResult> context) {
 
-            var data = context.First(
-               P => P.Autorname.Contains(request.autorname) ||
-               P.Bookname.Contains(request.bookname) ||
-               P.Jsonresponse.Contains(request.autorname) ||
-               P.Jsonresponse.Contains(request.bookname)
-               );
+            var data = new SearchedResult();
 
+            if (context.Count() > 0)
+            {
+
+                  data = context.First(
+                   P => P.Autorname.Contains(request.autorname) ||
+                   P.Bookname.Contains(request.bookname) ||
+                   P.Jsonresponse.Contains(request.autorname) ||
+                   P.Jsonresponse.Contains(request.bookname)
+                   );
+            }
             return data;
 
         }//FindWhereContains

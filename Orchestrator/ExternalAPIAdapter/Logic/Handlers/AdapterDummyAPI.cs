@@ -11,13 +11,12 @@ namespace ExternalAPIAdapter.Logic.Handlers
         public string _bookname { get; set; }
         public List<ParameterMap> parammap { get; set; }
         public string serviceURL { get => "nowhere"; }
-
         public string ConvertParameterToHTTPParameter(List<ParameterMap> parameters)
         {
             throw new NotImplementedException();
         }
 
-        public int GetData(List<ParameterMap> parameters, out string json)
+        public APIResult GetData(List<ParameterMap> parameters )
         {
             throw new NotImplementedException();
         }

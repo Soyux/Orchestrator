@@ -10,6 +10,7 @@ namespace SharedComms
         public string autorname;
         public string bookname;
         public string jsonresponse;
-        public string foundOn;//TODO
+        public int foundOn;//TODO
+        //int quantitymatches;
     }
 }

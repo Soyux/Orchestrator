@@ -7,7 +7,7 @@ namespace SharedComms
 {
     public class Request
     {
-        public string autorname;
-        public string bookname;
+        public string autorname { get; set; }
+        public string bookname { get; set; }
     }
 }

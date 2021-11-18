@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json.Serialization;
-
+using SharedComms;
 using Newtonsoft.Json;
 
 namespace Toolbox
@@ -58,6 +58,46 @@ namespace Toolbox
         public object DeconvertJSONToObject(string jsonresponse)
         {
             var request = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(jsonresponse);
+            return request;
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
+         
+
+        public Response DeconvertJSONToResponse(string jsonresponse)
+        {
+            var request = JsonConvert.DeserializeObject<Response>(jsonresponse);
+            return request;
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
+
+        public Request DeconvertJSONToRequest(string jsonresponse)
+        {
+            var request = JsonConvert.DeserializeObject<Request>(jsonresponse);
+            return request;
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
+        public string ConvertRequestToJson(Request data )
+        {
+            var request = JsonConvert.SerializeObject(data);
+            return request;
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
+
+        public string ConvertResponseToJson(Response data)
+        {
+            var request = JsonConvert.SerializeObject(data);
             return request;
             //var webhelper = new MasterHTTP(url, "POST", request, true);
             //string response = webhelper.GetResponse();

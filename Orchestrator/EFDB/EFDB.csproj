@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedComms\SharedComms.csproj" />
+    <ProjectReference Include="..\Toolbox\Toolbox.csproj" />
   </ItemGroup>
 
 

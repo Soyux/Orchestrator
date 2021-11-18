@@ -10,10 +10,17 @@ namespace ExternalAPIAdapter.Logic
         public string _authorname { get; set; }
         public string _bookname { get; set; }
         public string serviceURL { get; }
-        public int GetData(List<ParameterMap> parameters, out string json);
+        public APIResult GetData(List<ParameterMap> parameters);
 
         public string ConvertParameterToHTTPParameter(List<ParameterMap> parameters);
 
     }//end of interface IAdapter
+
+    public class APIResult
+    {
+        public string json { get; set; }
+        public int count { get; set; }
+
+    }
 
 }//end of namespace
