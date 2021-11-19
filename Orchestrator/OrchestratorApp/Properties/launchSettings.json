@@ -31,7 +31,10 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/Books",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "httpPort": 56554,
+      "sslPort":44385 
+
     }
   }
 }

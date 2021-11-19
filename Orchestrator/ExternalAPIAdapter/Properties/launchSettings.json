@@ -31,7 +31,9 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/ExternalAPI",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "sslPort": 44308,
+      "httpPort": 6588
     }
   }
 }
