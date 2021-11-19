@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EFDB.Data;
-
+using Microsoft.OpenApi.Models;
 namespace EFDB
 {
     public class Startup
@@ -31,6 +31,29 @@ namespace EFDB
 
             services.AddDbContext<EFDBContext>(options =>
                     options.UseMySQL(Configuration.GetConnectionString("EFDBContext")));
+            AddSwagger(services);
+        }
+
+        private void AddSwagger(IServiceCollection services) {
+
+            services.AddSwaggerGen(options =>
+            {
+                var groupName = "v1";
+
+                options.SwaggerDoc(groupName, new OpenApiInfo
+                {
+                    Title = $"EntityFrameworkDB {groupName}",
+                    Version = groupName,
+                    Description = "EntityFrameworkDB API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Foo Company",
+                        Email = string.Empty,
+                        Url = new Uri("https://foo.com/"),
+                    }
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +74,13 @@ namespace EFDB
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EntityFrameworkDB API V1");
+            });
+
         }
     }
 }
