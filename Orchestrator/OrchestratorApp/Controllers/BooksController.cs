@@ -30,7 +30,7 @@ namespace OrchestratorApp
             return Ok(mjson.ConvertResponseToJson(response));
         }
 
-        //POST api/<BooksController>
+        //POST localhost/Books/
         [Route("SearchDB")]
         [HttpPost]
         public async Task<IActionResult> SearchDB([FromBody] Request request)

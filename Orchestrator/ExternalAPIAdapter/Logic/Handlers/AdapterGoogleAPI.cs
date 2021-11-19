@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Toolbox;
+using SharedComms.Model;
+using SharedComms;
+using Newtonsoft.Json.Linq;
 
 namespace ExternalAPIAdapter.Logic.Handlers
 {
@@ -14,9 +17,10 @@ namespace ExternalAPIAdapter.Logic.Handlers
 
         const string googleapi = "https://www.googleapis.com/books/v1/volumes?q=";
         public string serviceURL { get => googleapi; }
-
+        private MasterJSON mjson;
         public AdapterGoogleAPI()
         {
+            mjson = new MasterJSON();
             _authorname = "inauthor";
             _bookname = "intitle";
 
@@ -47,7 +51,7 @@ namespace ExternalAPIAdapter.Logic.Handlers
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns>The total of records found</returns>
-        public APIResult  GetData(List<ParameterMap> parameters )
+        public async Task<APIResult> GetData(List<ParameterMap> parameters )
         {
             var http = new MasterHTTP();
             HttpResponseMessage response;
@@ -56,18 +60,36 @@ namespace ExternalAPIAdapter.Logic.Handlers
             response = http.GEtJSONAsync(googleapi + httpparameter, "").GetAwaiter().GetResult();
             string res = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            return new APIResult()
-            {
-                count = extractTotalFound(res),
-                json = res
-            };
+            return extractInfo(res);
         
         }//end of GetData
 
-        public int extractTotalFound(string json) {
-            var masterjson = new MasterJSON();
-            var totalregisters = masterjson.GetValueJSON(json, "totalItems");
-            return int.Parse(totalregisters);
+        public APIResult extractInfo(string json)
+        {
+            var result = new APIResult();
+             
+
+            dynamic obj =mjson.DeconvertJSONToObject(json);
+            var totalitems = (int)obj.totalItems;
+            if (obj.items != null) {
+                foreach (var book in obj.items) {
+
+                    var new_book = new Book();
+                    var volumeInfo = book.volumeInfo;
+
+                    new_book.Title = volumeInfo.title ?? "";
+                    new_book.Publisher = volumeInfo.publisher ?? "";
+                    if (volumeInfo.authors != null) {
+                        foreach (string author in volumeInfo.authors) {
+                            new_book.Authors.Add(author);
+                        }
+                    }
+                    result.books.Add(new_book);
+
+                }//end of foreach
+            }
+            result.count = totalitems;
+            return result;
         }
 
 

@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchestratorApp", "OrchestratorApp\OrchestratorApp.csproj", "{4D1D9EA7-DB5D-4385-8388-1D15CEDEC02B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedComms", "SharedComms\SharedComms.csproj", "{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedComms", "SharedComms\SharedComms.csproj", "{1F6795C1-D2ED-41FF-9B1A-DF824305FFC5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{1BFE9354-41BA-40FF-953D-75EE8D057868}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{1BFE9354-41BA-40FF-953D-75EE8D057868}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

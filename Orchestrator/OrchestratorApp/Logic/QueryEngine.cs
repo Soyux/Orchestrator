@@ -13,13 +13,14 @@ namespace OrchestratorApp.Logic
         const string URLEFDB = "https://localhost:44375/SearchedResults/";
         const string URLEFDB_GetSearchedResult = URLEFDB+"Find/";
         const string URLEFDB_PostSearchedResults = URLEFDB + "Post/";
-
+         
         const string URLApiAdapter = "https://localhost:44308/ExternalAPI/SearchBook";
 
         private MasterJSON mjson;
 
         public QueryEngine(){
             mjson = new MasterJSON();
+           
         }
 
         async Task<Response> InvokeGetAPI_Request(Request request,string serviceURL) {
@@ -54,23 +55,24 @@ namespace OrchestratorApp.Logic
             Response response;
             //Looks for similar information on the Database already searched
             response = await InvokeGetAPI_Request(request, URLEFDB_GetSearchedResult);
-            if (response.foundOn == (int)FoundType.NotFound) {
+            if (response.Books.Count()==0) {
 
                 response = await SearchCloudFirst(request);
 
             }//not found on databases
 
-            //returns response back
+            //returns response in plain text
             return response;
+            
         }//end of SearchDBFirst
-         
 
+       
         public async Task<Response> SearchCloudFirst(Request request) {
             Response response;
             //IF there isnt info then it will query the external APIs for it
             response = await InvokeGetAPI_Request(request, URLApiAdapter);
 
-            if (response.foundOn == (int)FoundType.NotFound)
+            if (response.Books.Count()==0)
             {
                 //TODO
                 //Information not found anywhere

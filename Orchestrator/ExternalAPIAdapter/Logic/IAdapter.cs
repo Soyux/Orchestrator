@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SharedComms;
+using SharedComms.Model;
 
 namespace ExternalAPIAdapter.Logic
 {
@@ -10,7 +12,7 @@ namespace ExternalAPIAdapter.Logic
         public string _authorname { get; set; }
         public string _bookname { get; set; }
         public string serviceURL { get; }
-        public APIResult GetData(List<ParameterMap> parameters);
+        public  Task<APIResult> GetData(List<ParameterMap> parameters);
 
         public string ConvertParameterToHTTPParameter(List<ParameterMap> parameters);
 
@@ -18,11 +20,10 @@ namespace ExternalAPIAdapter.Logic
 
     public class APIResult
     {
-        public string json { get; set; }
+        public List<Book> books { get; set; }
         public int count { get; set; }
-
         public APIResult() {
-            json = "";
+            books = new List<Book>();
             count = 0;
         }
 

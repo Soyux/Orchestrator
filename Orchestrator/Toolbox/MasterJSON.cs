@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using SharedComms;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using SharedComms.Model;
 
 namespace Toolbox
 {
@@ -74,7 +75,26 @@ namespace Toolbox
 
             //return response;
         }
-         
+
+        public List<Book> DeconvertJSONToListBook(string jsonresponse)
+        {
+            var request =  (List<Book>)JsonConvert.DeserializeObject(jsonresponse,typeof(List<Book>));
+            return request;
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
+
+
+        public dynamic DeconvertJSONToDynamic(string jsonresponse)
+        {
+            return  JsonConvert.DeserializeObject(jsonresponse);
+            //var webhelper = new MasterHTTP(url, "POST", request, true);
+            //string response = webhelper.GetResponse();
+
+            //return response;
+        }
 
         public Response DeconvertJSONToResponse(string jsonresponse)
         {
@@ -118,6 +138,12 @@ namespace Toolbox
         public string ConvertObjectoToJSON(dynamic input) {
 
             var responseJson = JsonConvert.SerializeObject(input, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            return responseJson;
+        }
+
+        public string ConvertListBookToJSON(List<Book> input)
+        {
+            var responseJson = JsonConvert.SerializeObject(input);
             return responseJson;
         }
 

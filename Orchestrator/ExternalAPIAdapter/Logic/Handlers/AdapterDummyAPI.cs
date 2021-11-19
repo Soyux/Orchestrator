@@ -16,7 +16,7 @@ namespace ExternalAPIAdapter.Logic.Handlers
             return "";
         }
 
-        public APIResult GetData(List<ParameterMap> parameters )
+        public async Task<APIResult> GetData(List<ParameterMap> parameters )
         {
             return new APIResult();
         }

@@ -11,24 +11,26 @@ namespace EFDB.Model
     {
 
         int id;
-        string autorname;
-        string bookname;
-        string jsonresponse;
-        int foundOn;
+        string? searched_authorname;
+        string? searched_bookname;
+        string bookobject;
 
         public int Id { get => id; set => id = value; }
-        public string Autorname { get => autorname; set => autorname = value; }
-        public string Bookname { get => bookname; set => bookname = value; }
-        public string Jsonresponse { get => jsonresponse; set => jsonresponse = value; }
-        public int FoundOn { get => foundOn; set => foundOn = value; }
+        public string Searched_authorname { get => searched_authorname; set => searched_authorname = value; }
+        public string Searched_bookname { get => searched_bookname; set => searched_bookname = value; }
+        public string Bookobject { get => bookobject; set => bookobject = value; }
 
-        public SearchedResult() {
 
-            FoundOn = (int)FoundType.NotFound;
-            Autorname = "";
-            Bookname = "";
-            Jsonresponse = "";
+
+        public SearchedResult()
+        {
             Id = 0;
+            Searched_authorname = "";
+            Searched_bookname = "";
+            Bookobject = "";
+
         }
+
+
     }//end of class
 }//end of namespace

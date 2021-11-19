@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using EFDB.Model;
 using SharedComms;
+using Toolbox;
 
 namespace EFDB.Logic
 {
@@ -11,14 +13,13 @@ namespace EFDB.Logic
     {
 
         public SearchedResult Apply(Response response) {
+            var mjson = new MasterJSON();
 
             var searchedresult = new SearchedResult()
             {
-                Autorname = response.autorname,
-                Bookname = response.bookname,
-                FoundOn = response.foundOn,
-                Jsonresponse = response.jsonresponse
-
+                Searched_authorname = response.searched_authorname,
+                Searched_bookname = response.searched_bookname,
+                Bookobject =  Regex.Unescape(mjson.ConvertListBookToJSON(response.Books))
             };
 
             return searchedresult;
